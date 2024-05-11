@@ -1,10 +1,9 @@
 <template>
   <div id="app">
-    <Headers v-if="isAuthenticated" @logout="handleLogout"/>
-    <Sidebar v-if="isAuthenticated" />
+    <Headers v-if="!isLoginPage" @logout="handleLogout" />
+    <Sidebar v-if="!isLoginPage" />
     <router-view />
   </div>
-  
 </template>
 
 <script>
@@ -26,7 +25,12 @@ export default {
       isAuthenticated: false,
     }
   },
-  created (){
+  computed: {
+    isLoginPage() {
+      return this.$route.path === '/';
+    }
+  },
+  created() {
     const token = localStorage.getItem('accessToken');
     if (token) {
       this.isAuthenticated = true;
@@ -34,7 +38,7 @@ export default {
   },
   methods: {
     handleLogout() {
-      localStorage.removeItem('accessToekn');
+      localStorage.removeItem('accessToken');
       this.isAuthenticated = false;
       this.$router.push('/');
     }
