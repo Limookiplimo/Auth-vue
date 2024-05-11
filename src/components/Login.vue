@@ -30,7 +30,7 @@
                       </div>
                     </div>
                     <div class="form-login">
-                      <a class="btn btn-login">Sign In</a>
+                      <a class="btn btn-login" @click="login">Sign In</a>
                     </div>
                   </div>
                 </div>
